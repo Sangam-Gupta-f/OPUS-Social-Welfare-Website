@@ -13,7 +13,6 @@ export function Header() {
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
     { label: "Programs", href: "/programs" },
-    { label: "Impact", href: "/impact" },
     { label: "Certificates", href: "/certificates" },
     { label: "Gallery", href: "/gallery" },
     { label: "Contact", href: "/contact" },
@@ -47,7 +46,7 @@ export function Header() {
             {navItems.map((item) => (
               <Link
                 key={item.href}
-                href="#" //{item.href}
+                href={item.href}
                 className="px-3 py-2 text-md font-medium rounded-md hover:bg-secondary/10 hover:text-primary transition-colors"
               >
                 {item.label}

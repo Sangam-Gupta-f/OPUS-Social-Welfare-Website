@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -24,7 +32,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="#"
+                  href="/about"
                   className="opacity-90 hover:opacity-100 transition-opacity"
                 >
                   About Us
@@ -32,7 +40,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/programs"
                   className="opacity-90 hover:opacity-100 transition-opacity"
                 >
                   Programs
@@ -40,15 +48,15 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/gallery"
                   className="opacity-90 hover:opacity-100 transition-opacity"
                 >
-                  Impact
+                  Gallery
                 </Link>
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/certificates"
                   className="opacity-90 hover:opacity-100 transition-opacity"
                 >
                   Certificates
@@ -81,7 +89,7 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
             <div className="flex gap-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/share/178DfGFcHk/"
                 className="p-2 rounded-full opacity-90 hover:opacity-100 transition-opacity hover:bg-primary-foreground/20"
                 aria-label="Facebook"
               >
@@ -95,11 +103,11 @@ export function Footer() {
                 <Twitter className="h-5 w-5" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.instagram.com/opus_foundation_?utm_source=qr&igsh=c25zNHN5am5teGt6"
                 className="p-2 rounded-full opacity-90 hover:opacity-100 transition-opacity hover:bg-primary-foreground/20"
-                aria-label="LinkedIn"
+                aria-label="Instagram"
               >
-                <Linkedin className="h-5 w-5" />
+                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>

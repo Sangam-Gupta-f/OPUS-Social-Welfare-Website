@@ -4,7 +4,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Users, BookOpen, Heart, Award } from "lucide-react";
+import { ArrowRight, Users, BookOpen, Heart, Award, Quote } from "lucide-react";
 
 export default function Home() {
   return (
@@ -41,7 +41,7 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="#">
+                <Link href="/programs">
                   <Button
                     size="lg"
                     className="w-full sm:w-auto bg-primary hover:bg-primary/90"
@@ -49,7 +49,7 @@ export default function Home() {
                     Explore Programs <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Link href="#">
+                <Link href="/contacts">
                   <Button
                     size="lg"
                     variant="outline"
@@ -141,7 +141,7 @@ export default function Home() {
       </section>
 
       {/* Key Focus Areas */}
-      <section className="py-20 sm:py-32">
+      {/* <section className="py-20 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">What We Do</h2>
@@ -191,6 +191,160 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section> */}
+      {/* Program Impact Areas */}
+      <section className="py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Section Heading */}
+          <div className="text-center mb-14">
+            <h2 className="text-4xl font-bold tracking-tight">
+              Areas of Impact
+            </h2>
+
+            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+              Our initiatives focus on transforming lives through education,
+              healthcare, empowerment, and skill development.
+            </p>
+          </div>
+
+          {/* Impact Cards */}
+          <div className="space-y-10">
+            {[
+              {
+                title: "Education & Literacy",
+                image: "/images/i1.jpeg",
+                metrics: [
+                  "300+ students supported",
+                  "85% school completion rate",
+                  "12 scholarships awarded",
+                ],
+                description:
+                  "Our education programs have helped hundreds of students overcome barriers to learning and achieve academic excellence.",
+              },
+              {
+                title: "Youth Development & Skills",
+                image:
+                  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
+                metrics: [
+                  "150+ interns trained",
+                  "90% employment rate",
+                  "5+ skill certifications offered",
+                ],
+                description:
+                  "Through internships and skill training, we have prepared youth for professional careers and entrepreneurship.",
+              },
+              {
+                title: "Community Health & Welfare",
+                image:
+                  "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop",
+                metrics: [
+                  "1000+ health awareness",
+                  "200+ beneficiaries",
+                  "50+ camps conducted",
+                ],
+                description:
+                  "Community health initiatives have improved awareness, access to healthcare, and overall well-being.",
+              },
+              {
+                title: "Women Empowerment",
+                image: "/images/i2.jpeg",
+                metrics: [
+                  "80+ women trained",
+                  "40% started businesses",
+                  "100+ income generators",
+                ],
+                description:
+                  "Women empowerment programs have fostered economic independence and social participation.",
+              },
+            ].map((area, index) => (
+              <Card
+                key={index}
+                className="overflow-hidden border-0 shadow-lg bg-white dark:bg-slate-900 py-0"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-2">
+                  {/* Image */}
+                  <div
+                    className={`h-72 lg:h-full overflow-hidden ${
+                      index % 2 !== 0 ? "lg:order-2" : ""
+                    }`}
+                  >
+                    <img
+                      src={area.image}
+                      alt={area.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <div
+                    className={`p-8 flex flex-col justify-center ${
+                      index % 2 !== 0 ? "lg:order-1" : ""
+                    }`}
+                  >
+                    <h3 className="text-3xl font-bold mb-4 text-primary">
+                      {area.title}
+                    </h3>
+
+                    <p className="text-foreground/80 mb-6 leading-relaxed">
+                      {area.description}
+                    </p>
+
+                    {/* Metrics */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {area.metrics.map((metric, i) => (
+                        <div
+                          key={i}
+                          className="bg-primary/5 border border-primary/10 p-4 rounded-xl text-center"
+                        >
+                          <p className="text-sm font-semibold text-primary">
+                            {metric}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-white dark:bg-slate-950 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-12 text-center">
+            What People Say
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                quote:
+                  "OPUS Foundation changed my life by providing the education and support I needed to succeed.",
+                author: "Rahul, Student",
+              },
+              {
+                quote:
+                  "The internship program was instrumental in launching my career. Highly recommend to everyone!",
+                author: "Neha, Software Developer",
+              },
+              {
+                quote:
+                  "An amazing organization that genuinely cares about community development and social impact.",
+                author: "Mr. Sharma, Community Leader",
+              },
+            ].map((testimonial, index) => (
+              <Card key={index} className="p-6 border-l-4 border-secondary">
+                <Quote className="h-5 w-5 text-accent mb-3" />
+                <p className="text-foreground/80 mb-4 leading-relaxed italic">
+                  &quot;{testimonial.quote}&quot;
+                </p>
+                <p className="font-semibold">{testimonial.author}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* CTA Section */}
@@ -204,7 +358,7 @@ export default function Home() {
             stronger communities. Together, we can create meaningful change.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="#">
+            <Link href="/programs">
               <Button
                 size="lg"
                 variant="secondary"
@@ -213,7 +367,7 @@ export default function Home() {
                 Explore Programs
               </Button>
             </Link>
-            <Link href="#">
+            <Link href="/contact">
               <Button
                 size="lg"
                 variant="outline"
