@@ -4,6 +4,7 @@ import { use, useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Eye, Trash2, Search, Download } from "lucide-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const InternshipCertificatePopup = dynamic(
   () => import("./generateCertificate"),
@@ -94,7 +95,7 @@ export default function CertificatesTable() {
         </div>
 
         {/* Table Card */}
-        <Card className="overflow-hidden border-0 shadow-xl rounded-2xl">
+        <Card className="overflow-hidden py-0 border-0 shadow-xl rounded-2xl">
           {/* Desktop Table */}
           <div className="hidden lg:block overflow-x-auto">
             <table className="w-full">
@@ -143,25 +144,35 @@ export default function CertificatesTable() {
 
                       <td className="px-6 py-5">{certificate.faterName}</td>
 
-                      <td className="px-6 py-5">{certificate.issuedDate}</td>
+                      <td className="px-6 py-5">
+                        {new Date(certificate.issuedDate).toLocaleDateString()}
+                      </td>
 
                       <td className="px-6 py-5">
-                        {certificate.internshipStartDate} →{" "}
-                        {certificate.internshipEndDate}
+                        {new Date(
+                          certificate.internshipStartDate,
+                        ).toLocaleDateString()}{" "}
+                        →{" "}
+                        {new Date(
+                          certificate.internshipEndDate,
+                        ).toLocaleDateString()}
                       </td>
 
                       {/* Actions */}
                       <td className="px-6 py-5">
                         <div className="flex items-center justify-center gap-3">
                           {/* View */}
-                          <button className="p-2 rounded-lg bg-blue-100 text-blue-600 hover:scale-105 transition">
+                          <Link
+                            href={`/verify/${certificate.certificateId}`}
+                            className="p-2 rounded-lg bg-blue-100 text-blue-600 hover:scale-105 transition"
+                          >
                             <Eye size={18} />
-                          </button>
+                          </Link>
 
-                          {/* Download */}
+                          {/* Download
                           <button className="p-2 rounded-lg bg-green-100 text-green-600 hover:scale-105 transition">
                             <Download size={18} />
-                          </button>
+                          </button> */}
 
                           {/* Delete */}
                           <button
