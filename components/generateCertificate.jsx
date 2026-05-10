@@ -10,7 +10,15 @@ import {
 } from "@/components/ui/dialog";
 
 export default function InternshipCertificatePopup() {
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
   const [formData, setFormData] = useState({
     certificateId: "",
     name: "",

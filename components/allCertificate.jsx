@@ -7,6 +7,16 @@ import InternshipCertificatePopup from "./generateCertificate";
 
 export default function CertificatesTable() {
   const [search, setSearch] = useState("");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+
+    if (storedToken) {
+      setToken(storedToken);
+      certificate(storedToken);
+    }
+  }, []);
 
   const [certificates, setCertificates] = useState([]);
 
@@ -21,13 +31,8 @@ export default function CertificatesTable() {
     const updated = certificates.filter((item) => item._id !== id);
     setCertificates(updated);
   };
-  let token = "";
-  useEffect(() => {
-    token = localStorage.getItem("token");
-    certificate();
-  }, []);
 
-  const certificate = async () => {
+  const certificate = async (token) => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/certificates/`,
