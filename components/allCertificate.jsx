@@ -7,39 +7,8 @@ import InternshipCertificatePopup from "./generateCertificate";
 
 export default function CertificatesTable() {
   const [search, setSearch] = useState("");
-  const token = localStorage.getItem("token");
-  const [certificates, setCertificates] = useState([]);
 
-  // Dummy Data
-  //   const [certificates, setCertificates] = useState([
-  //     {
-  //       _id: "1",
-  //       certificateId: "CERT-2026-001",
-  //       name: "Rahul Sharma",
-  //       faterName: "Mahesh Sharma",
-  //       issuedDate: "2026-05-01",
-  //       internshipStartDate: "2026-01-01",
-  //       internshipEndDate: "2026-04-30",
-  //     },
-  //     {
-  //       _id: "2",
-  //       certificateId: "CERT-2026-002",
-  //       name: "Priya Singh",
-  //       faterName: "Rajesh Singh",
-  //       issuedDate: "2026-05-03",
-  //       internshipStartDate: "2026-02-01",
-  //       internshipEndDate: "2026-05-01",
-  //     },
-  //     {
-  //       _id: "3",
-  //       certificateId: "CERT-2026-003",
-  //       name: "Amit Verma",
-  //       faterName: "Suresh Verma",
-  //       issuedDate: "2026-05-05",
-  //       internshipStartDate: "2026-01-15",
-  //       internshipEndDate: "2026-04-15",
-  //     },
-  //   ]);
+  const [certificates, setCertificates] = useState([]);
 
   // Filter Search
   const filteredCertificates = certificates.filter(
@@ -52,6 +21,11 @@ export default function CertificatesTable() {
     const updated = certificates.filter((item) => item._id !== id);
     setCertificates(updated);
   };
+  let token = "";
+  useEffect(() => {
+    token = localStorage.getItem("token");
+    certificate();
+  }, []);
 
   const certificate = async () => {
     try {
@@ -76,10 +50,6 @@ export default function CertificatesTable() {
       alert("Error fetching certificates");
     }
   };
-
-  useEffect(() => {
-    certificate();
-  }, []);
 
   return (
     <div className="min-h-screen bg-muted/30 py-10 px-4">
