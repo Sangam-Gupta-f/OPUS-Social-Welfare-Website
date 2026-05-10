@@ -1,11 +1,20 @@
 "use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import CertificatesTable from "@/components/allCertificate";
 
-function page() {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    window.location.href = "/login";
-  }
+function Page() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/login");
+    }
+  }, [router]);
+
   return (
     <div>
       <CertificatesTable />
@@ -13,4 +22,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
