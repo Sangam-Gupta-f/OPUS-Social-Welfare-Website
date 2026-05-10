@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
-import { set } from "date-fns";
 
 export default function ModernLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,8 +14,6 @@ export default function ModernLoginPage() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  useEffect(() => {});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

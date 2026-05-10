@@ -3,7 +3,12 @@
 import { use, useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Eye, Trash2, Search, Download } from "lucide-react";
-import InternshipCertificatePopup from "./generateCertificate";
+import dynamic from "next/dynamic";
+
+const InternshipCertificatePopup = dynamic(
+  () => import("./generateCertificate"),
+  { ssr: false },
+);
 
 export default function CertificatesTable() {
   const [search, setSearch] = useState("");

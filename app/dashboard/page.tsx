@@ -2,7 +2,12 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import CertificatesTable from "@/components/allCertificate";
+// import CertificatesTable from "@/components/allCertificate";
+import dynamic from "next/dynamic";
+
+const CertificatesTable = dynamic(() => import("@/components/allCertificate"), {
+  ssr: false,
+});
 
 function Page() {
   const router = useRouter();
