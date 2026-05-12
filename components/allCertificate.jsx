@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Eye, Trash2, Search, Download } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -33,8 +33,27 @@ export default function CertificatesTable() {
       certificate.certificateId.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    if (!confirm("Are you sure you want to delete this certificate?")) {
+      return;
+    }
+    //
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/certificates/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    if (!response.ok) {
+      alert("Error deleting certificate");
+      return;
+    }
     const updated = certificates.filter((item) => item._id !== id);
+
     setCertificates(updated);
   };
 
@@ -228,20 +247,24 @@ export default function CertificatesTable() {
                     </p>
 
                     <p className="text-sm">
-                      {certificate.internshipStartDate} →{" "}
-                      {certificate.internshipEndDate}
+                      {new Date(
+                        certificate.internshipStartDate,
+                      ).toLocaleDateString()}{" "}
+                      →{" "}
+                      {new Date(
+                        certificate.internshipEndDate,
+                      ).toLocaleDateString()}
                     </p>
                   </div>
 
                   {/* Actions */}
                   <div className="flex items-center gap-3 pt-2">
-                    <button className="flex-1 bg-blue-100 text-blue-600 py-2 rounded-lg text-sm font-medium">
+                    <Link
+                      href={`/verify/${certificate.certificateId}`}
+                      className="flex-1 bg-blue-100 text-blue-600 py-2 rounded-lg text-sm font-medium text-center"
+                    >
                       View
-                    </button>
-
-                    <button className="flex-1 bg-green-100 text-green-600 py-2 rounded-lg text-sm font-medium">
-                      Download
-                    </button>
+                    </Link>
 
                     <button
                       onClick={() => handleDelete(certificate._id)}

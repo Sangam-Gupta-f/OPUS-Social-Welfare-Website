@@ -21,10 +21,13 @@ export default function InternshipCertificatePopup() {
 
   const [formData, setFormData] = useState({
     certificateId: "",
+    enrollmentNumber: "",
+    rollNumber: "",
+    course: "",
+    semester: "",
     name: "",
     faterName: "",
     issuedDate: "",
-    expiryDate: "",
     internshipStartDate: "",
     internshipEndDate: "",
   });
@@ -56,35 +59,16 @@ export default function InternshipCertificatePopup() {
         alert("Error generating certificate");
         return;
       }
-
-      // Convert response to blob
-      const blob = await response.blob();
-
-      // Create download URL
-      const url = window.URL.createObjectURL(blob);
-
-      // Create temporary anchor tag
-      const a = document.createElement("a");
-      a.href = url;
-
-      // File name
-      a.download = `${formData.name}-certificate.pdf`;
-
-      // Trigger download
-      document.body.appendChild(a);
-      a.click();
-
-      // Cleanup
-      a.remove();
-      window.URL.revokeObjectURL(url);
-
-      alert("Certificate downloaded successfully");
+      alert("Certificate generated successfully");
       setFormData({
         certificateId: "",
+        enrollmentNumber: "",
+        rollNumber: "",
+        course: "",
+        semester: "",
         name: "",
         faterName: "",
         issuedDate: "",
-        expiryDate: "",
         internshipStartDate: "",
         internshipEndDate: "",
       });
@@ -189,19 +173,62 @@ export default function InternshipCertificatePopup() {
             />
           </div>
 
-          {/* Expiry Date */}
+          {/* Enrollment Number */}
           <div>
             <label className="block text-sm font-semibold mb-2">
-              Expiry Date
+              Enrollment No.
             </label>
 
             <input
-              type="date"
-              name="expiryDate"
-              value={formData.expiryDate}
+              type="text"
+              name="enrollmentNumber"
+              value={formData.enrollmentNumber}
               onChange={handleChange}
               className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
             />
+          </div>
+          {/* Roll Number */}
+          <div>
+            <label className="block text-sm font-semibold mb-2">Roll No.</label>
+
+            <input
+              type="text"
+              name="rollNumber"
+              value={formData.rollNumber}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+          {/* Course */}
+          <div>
+            <label className="block text-sm font-semibold mb-2">Course</label>
+
+            <select
+              name="course"
+              value={formData.course}
+              onChange={handleChange}
+            >
+              <option value="B-tech">B-tech</option>
+              <option value="BSE">BSE</option>
+              <option value="BA">BA</option>
+              <option value="B-COM">B-COM</option>
+            </select>
+          </div>
+          {/* Semester */}
+          <div>
+            <label className="block text-sm font-semibold mb-2">Semester</label>
+
+            <select
+              name="semester"
+              value={formData.semester}
+              onChange={handleChange}
+            >
+              {Array.from({ length: 8 }, (_, i) => (
+                <option key={i + 1} value={i + 1}>
+                  {i + 1}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Internship Start Date */}
