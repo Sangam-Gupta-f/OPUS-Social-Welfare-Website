@@ -209,7 +209,7 @@ export default function InternshipCertificatePopup() {
               onChange={handleChange}
             >
               <option value="B-tech">B-tech</option>
-              <option value="BSE">BSE</option>
+              <option value="BSE">BSC</option>
               <option value="BA">BA</option>
               <option value="B-COM">B-COM</option>
             </select>
