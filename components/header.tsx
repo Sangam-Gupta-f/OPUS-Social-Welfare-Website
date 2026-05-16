@@ -12,7 +12,7 @@ export function Header() {
   const navItems = [
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
-    { label: "Programs", href: "/programs" },
+    { label: "Internship Programs", href: "/programs" },
     { label: "Certificates", href: "/certificates" },
     { label: "Gallery", href: "/gallery" },
     { label: "Contact", href: "/contact" },

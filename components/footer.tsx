@@ -43,7 +43,7 @@ export function Footer() {
                   href="/programs"
                   className="opacity-90 hover:opacity-100 transition-opacity"
                 >
-                  Programs
+                  Intenrship Programs
                 </Link>
               </li>
               <li>

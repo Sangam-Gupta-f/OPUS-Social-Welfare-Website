@@ -21,15 +21,12 @@ export default function InternshipCertificatePopup() {
 
   const [formData, setFormData] = useState({
     certificateId: "",
-    enrollmentNumber: "",
-    rollNumber: "",
-    course: "",
-    semester: "",
     name: "",
     faterName: "",
     issuedDate: "",
     internshipStartDate: "",
     internshipEndDate: "",
+    collegeName: "",
   });
 
   const handleChange = (e) => {
@@ -62,15 +59,12 @@ export default function InternshipCertificatePopup() {
       alert("Certificate generated successfully");
       setFormData({
         certificateId: "",
-        enrollmentNumber: "",
-        rollNumber: "",
-        course: "",
-        semester: "",
         name: "",
         faterName: "",
         issuedDate: "",
         internshipStartDate: "",
         internshipEndDate: "",
+        collegeName: "",
       });
     } catch (error) {
       console.error(error);
@@ -118,7 +112,7 @@ export default function InternshipCertificatePopup() {
               name="certificateId"
               value={formData.certificateId}
               onChange={handleChange}
-              placeholder="Enter certificate ID"
+              placeholder="Enter certificate No"
               required
               className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
             />
@@ -173,62 +167,19 @@ export default function InternshipCertificatePopup() {
             />
           </div>
 
-          {/* Enrollment Number */}
+          {/*College Name */}
           <div>
             <label className="block text-sm font-semibold mb-2">
-              Enrollment No.
+              College Name
             </label>
 
             <input
               type="text"
-              name="enrollmentNumber"
-              value={formData.enrollmentNumber}
+              name="collegeName"
+              value={formData.collegeName}
               onChange={handleChange}
               className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
             />
-          </div>
-          {/* Roll Number */}
-          <div>
-            <label className="block text-sm font-semibold mb-2">Roll No.</label>
-
-            <input
-              type="text"
-              name="rollNumber"
-              value={formData.rollNumber}
-              onChange={handleChange}
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
-          {/* Course */}
-          <div>
-            <label className="block text-sm font-semibold mb-2">Course</label>
-
-            <select
-              name="course"
-              value={formData.course}
-              onChange={handleChange}
-            >
-              <option value="B-tech">B-tech</option>
-              <option value="BSE">BSC</option>
-              <option value="BA">BA</option>
-              <option value="B-COM">B-COM</option>
-            </select>
-          </div>
-          {/* Semester */}
-          <div>
-            <label className="block text-sm font-semibold mb-2">Semester</label>
-
-            <select
-              name="semester"
-              value={formData.semester}
-              onChange={handleChange}
-            >
-              {Array.from({ length: 8 }, (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </select>
           </div>
 
           {/* Internship Start Date */}

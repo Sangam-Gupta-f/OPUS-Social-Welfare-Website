@@ -2,9 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Eye, Trash2, Search, Download } from "lucide-react";
+import {
+  Eye,
+  Trash2,
+  Search,
+  Download,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import axios from "axios";
 
 const InternshipCertificatePopup = dynamic(
   () => import("./generateCertificate"),
@@ -14,15 +22,22 @@ const InternshipCertificatePopup = dynamic(
 export default function CertificatesTable() {
   const [search, setSearch] = useState("");
   const [token, setToken] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    pageSize: 10,
+    totalCertificates: 0,
+    totalPages: 0,
+  });
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
 
     if (storedToken) {
       setToken(storedToken);
-      certificate(storedToken);
+      certificate(storedToken, currentPage);
     }
-  }, []);
+  }, [currentPage]);
 
   const [certificates, setCertificates] = useState([]);
 
@@ -32,6 +47,23 @@ export default function CertificatesTable() {
       certificate.name.toLowerCase().includes(search.toLowerCase()) ||
       certificate.certificateId.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    setCurrentPage(1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < pagination.totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this certificate?")) {
@@ -57,24 +89,24 @@ export default function CertificatesTable() {
     setCertificates(updated);
   };
 
-  const certificate = async (token) => {
+  const certificate = async (token, page = 1) => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/certificates/`,
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/certificates/?page=${page}&limit=10`,
         {
-          method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         },
       );
-      if (!response.ok) {
+      if (!response.data) {
         alert("Error fetching certificates");
         return;
       }
-      const data = await response.json();
+      const data = response.data?.data;
       setCertificates(data);
+      setPagination(response.data?.pagination);
     } catch (error) {
       console.error(error);
       alert("Error fetching certificates");
@@ -104,7 +136,7 @@ export default function CertificatesTable() {
               type="text"
               placeholder="Search certificate..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
               className="w-full rounded-xl border bg-background pl-11 pr-4 py-3 outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
@@ -182,7 +214,7 @@ export default function CertificatesTable() {
                         <div className="flex items-center justify-center gap-3">
                           {/* View */}
                           <Link
-                            href={`/verify/${certificate.certificateId}`}
+                            href={`/download/${certificate.certificateId}`}
                             className="p-2 rounded-lg bg-blue-100 text-blue-600 hover:scale-105 transition"
                           >
                             <Eye size={18} />
@@ -260,7 +292,7 @@ export default function CertificatesTable() {
                   {/* Actions */}
                   <div className="flex items-center gap-3 pt-2">
                     <Link
-                      href={`/verify/${certificate.certificateId}`}
+                      href={`/download/${certificate.certificateId}`}
                       className="flex-1 bg-blue-100 text-blue-600 py-2 rounded-lg text-sm font-medium text-center"
                     >
                       View
@@ -278,6 +310,55 @@ export default function CertificatesTable() {
             ))}
           </div>
         </Card>
+
+        {/* Pagination Controls */}
+        {pagination.totalPages > 1 && (
+          <div className="mt-8 flex items-center justify-between">
+            <div className="text-sm text-muted-foreground">
+              Page {pagination.currentPage} of {pagination.totalPages} · Total{" "}
+              {pagination.totalCertificates} certificates
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+                className="flex items-center gap-1 px-4 py-2 rounded-lg border bg-background hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                Previous
+              </button>
+
+              <div className="flex gap-1">
+                {Array.from(
+                  { length: pagination.totalPages },
+                  (_, i) => i + 1,
+                ).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-10 h-10 rounded-lg transition ${
+                      currentPage === page
+                        ? "bg-primary text-white"
+                        : "bg-background border hover:bg-muted"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === pagination.totalPages}
+                className="flex items-center gap-1 px-4 py-2 rounded-lg border bg-background hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition"
+              >
+                Next
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
