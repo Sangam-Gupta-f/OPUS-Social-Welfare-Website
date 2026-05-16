@@ -223,8 +223,7 @@ export default function Home() {
               },
               {
                 title: "Youth Development & Skills",
-                image:
-                  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
+                image: "/images/opus-group.jpeg",
                 metrics: [
                   "150+ interns trained",
                   "90% employment rate",

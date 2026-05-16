@@ -22,7 +22,7 @@ export default function InternshipCertificatePopup() {
   const [formData, setFormData] = useState({
     certificateId: "",
     name: "",
-    faterName: "",
+    fatherName: "",
     issuedDate: "",
     internshipStartDate: "",
     internshipEndDate: "",
@@ -60,7 +60,7 @@ export default function InternshipCertificatePopup() {
       setFormData({
         certificateId: "",
         name: "",
-        faterName: "",
+        fatherName: "",
         issuedDate: "",
         internshipStartDate: "",
         internshipEndDate: "",
@@ -143,8 +143,8 @@ export default function InternshipCertificatePopup() {
 
             <input
               type="text"
-              name="faterName"
-              value={formData.faterName}
+              name="fatherName"
+              value={formData.fatherName}
               onChange={handleChange}
               placeholder="Enter father name"
               className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"

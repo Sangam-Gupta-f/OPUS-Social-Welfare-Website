@@ -24,8 +24,7 @@ export default function GalleryPage() {
     },
     {
       title: "Youth Skill Development",
-      image:
-        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
+      image: "/images/opus-group.jpeg",
       category: "Youth Development",
     },
     {

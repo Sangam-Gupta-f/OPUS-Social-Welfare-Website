@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 interface CertificateData {
   certificateId: string;
   name: string;
-  faterName?: string;
+  fatherName?: string;
   issuedDate: string;
   qrCode: string;
   internshipStartDate: string;
@@ -159,14 +159,13 @@ function DesktopCertificate({
   certRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const metaLeft = [
-    ["Certificate No.", data.certificateId],
     ["Date of Issue", fmt(data.issuedDate)],
     ["Duration", "120 Hours"],
     ["Schedule", "3 Hours Daily"],
     ["Timing", "8 AM to 12 PM"],
   ];
   const metaRight = [
-    // ["Course", data.course],
+    ["Certificate No.", data.certificateId],
     ["College Name", data.collegeName],
     ["Program", "Social Work & Human Mgmt."],
     ["Centre", "Nasnoda District Jaipur"],
@@ -210,7 +209,7 @@ function DesktopCertificate({
         <h1 className="recipient-name">{data.name}</h1>
         <p className="father-line">
           Son / Daughter of{" "}
-          <span className="father-name">{data.faterName || "N/A"}</span>
+          <span className="father-name">{data.fatherName || "N/A"}</span>
         </p>
         <GoldLine className="medium" />
 
@@ -332,7 +331,7 @@ function MobileCertificate({ data }: { data: CertificateData }) {
           <span
             style={{ fontWeight: 600, fontStyle: "normal", color: "#4a2e00" }}
           >
-            {data.faterName || "N/A"}
+            {data.fatherName || "N/A"}
           </span>
         </p>
 

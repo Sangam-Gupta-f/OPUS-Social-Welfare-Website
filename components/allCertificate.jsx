@@ -191,9 +191,13 @@ export default function CertificatesTable() {
                         {certificate.certificateId}
                       </td>
 
-                      <td className="px-6 py-5">{certificate.name}</td>
+                      <td className="px-6 py-5 capitalize">
+                        {certificate.name}
+                      </td>
 
-                      <td className="px-6 py-5">{certificate.faterName}</td>
+                      <td className="px-6 py-5 capitalize">
+                        {certificate.fatherName}
+                      </td>
 
                       <td className="px-6 py-5">
                         {new Date(certificate.issuedDate).toLocaleDateString()}
