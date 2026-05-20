@@ -6,6 +6,8 @@ import { useParams } from "next/navigation";
 
 interface CertificateData {
   certificateId: string;
+  enrollmentNumber: string;
+  rollNumber: string;
   name: string;
   fatherName?: string;
   issuedDate: string;
@@ -159,12 +161,14 @@ function DesktopCertificate({
   certRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const metaLeft = [
-    ["Date of Issue", fmt(data.issuedDate)],
+    ["Enrollment No.", data.enrollmentNumber],
+    ["Roll No.", data.rollNumber],
     ["Duration", "120 Hours"],
-    ["Schedule", "3 Hours Daily"],
-    ["Timing", "8 AM to 12 PM"],
+    ["Schedule", "6 Hours Daily"],
+    ["Timing", "7 AM to 1 PM"],
   ];
   const metaRight = [
+    ["Date of Issue", fmt(data.issuedDate)],
     ["Certificate No.", data.certificateId],
     ["College Name", data.collegeName],
     ["Program", "Social Work & Human Mgmt."],

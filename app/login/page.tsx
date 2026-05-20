@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function ModernLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,23 +17,50 @@ export default function ModernLoginPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/login`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      },
-    );
-    const data = await res.json();
-    localStorage.setItem("token", data.token);
-    setFormData({ email: "", password: "" });
-    window.location.href = "/dashboard";
+
+    try {
+      setLoading(true);
+
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/login`,
+        formData,
+      );
+
+      const data = res.data.token;
+
+      // save token
+      localStorage.setItem("token", data);
+
+      // clear form
+      setFormData({
+        email: "",
+        password: "",
+      });
+
+      // redirect
+      router.push("/dashboard");
+    } catch (error: any) {
+      console.error("Login error:", error);
+
+      alert(error?.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="text-white text-lg">Logging in...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4 relative overflow-hidden">

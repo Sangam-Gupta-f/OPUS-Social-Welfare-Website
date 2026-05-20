@@ -21,6 +21,8 @@ export default function InternshipCertificatePopup() {
 
   const [formData, setFormData] = useState({
     certificateId: "",
+    enrollmentNumber: "",
+    rollNumber: "",
     name: "",
     fatherName: "",
     issuedDate: "",
@@ -59,6 +61,8 @@ export default function InternshipCertificatePopup() {
       alert("Certificate generated successfully");
       setFormData({
         certificateId: "",
+        enrollmentNumber: "",
+        rollNumber: "",
         name: "",
         fatherName: "",
         issuedDate: "",
@@ -147,6 +151,40 @@ export default function InternshipCertificatePopup() {
               value={formData.fatherName}
               onChange={handleChange}
               placeholder="Enter father name"
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          {/* enrollment number */}
+          <div>
+            <label className="block text-sm font-semibold mb-2">
+              Enrollment Number *
+            </label>
+
+            <input
+              type="text"
+              name="enrollmentNumber"
+              value={formData.enrollmentNumber}
+              onChange={handleChange}
+              placeholder="Enter enrollment number"
+              required
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          {/* roll number */}
+          <div>
+            <label className="block text-sm font-semibold mb-2">
+              Roll Number *
+            </label>
+
+            <input
+              type="text"
+              name="rollNumber"
+              value={formData.rollNumber}
+              onChange={handleChange}
+              placeholder="Enter roll number"
+              required
               className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
             />
           </div>

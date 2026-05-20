@@ -13,6 +13,7 @@ import {
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const InternshipCertificatePopup = dynamic(
   () => import("./generateCertificate"),
@@ -20,6 +21,7 @@ const InternshipCertificatePopup = dynamic(
 );
 
 export default function CertificatesTable() {
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [token, setToken] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,7 +104,7 @@ export default function CertificatesTable() {
       );
       if (!response.data) {
         alert("Error fetching certificates");
-        return;
+        router.push("/login");
       }
       const data = response.data?.data;
       setCertificates(data);
@@ -110,6 +112,7 @@ export default function CertificatesTable() {
     } catch (error) {
       console.error(error);
       alert("Error fetching certificates");
+      router.push("/login");
     }
   };
 
